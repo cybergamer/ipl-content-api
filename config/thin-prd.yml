@@ -1,0 +1,14 @@
+---
+chdir: /usr/local/src/ipl-content-api
+environment: production
+timeout: 1
+log: log/thin.log
+pid: tmp/pids/thin.pid
+max_conns: 1024
+max_persistent_conns: 512
+require: []
+
+wait: 30
+servers: 4
+socket: /tmp/thin.content_api_v2.sock
+daemonize: true
