@@ -59,6 +59,8 @@ module IPL
             response = lister.to_list(query, params)
             link_header = Pagination::LinkHeader.new.to_header(lister.paginator, request)
             header['Link'] = link_header if link_header
+            header['Last-Modified'] = Time.now.httpdate
+            header['Cache-Control'] = "public, max-age=#{5.minutes.to_i}"
             response
           end
 
@@ -67,6 +69,8 @@ module IPL
             requires :id, :bson_id => true
           end
           get ':id' do
+            header['Last-Modified'] = Time.now.httpdate
+            header['Cache-Control'] = "public, max-age=#{5.minutes.to_i}"
             Event.find(params[:id])
           end
 

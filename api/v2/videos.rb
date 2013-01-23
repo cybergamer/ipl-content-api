@@ -10,6 +10,8 @@ module IPL
 
           desc "Returns videos."
           get do
+            header['Last-Modified'] = Time.now.httpdate
+            header['Cache-Control'] = "public, max-age=#{5.minutes.to_i}"
             Lister.new.to_list(SourceVideo.all, params)
           end
 
