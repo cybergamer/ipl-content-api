@@ -10,6 +10,8 @@ module IPL
 
           desc "Returns groups."
           get do
+            header['Last-Modified'] = Time.now.httpdate
+            header['Cache-Control'] = "public, max-age=#{6.hours.to_i}"
             Lister.new.to_list(Group.all, params)
           end
 
