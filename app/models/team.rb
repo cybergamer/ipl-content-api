@@ -5,6 +5,7 @@ class Team
   # relations
   slug :name
   has_and_belongs_to_many :matchups
+  has_many :games_won, class_name: "MatchupGame", inverse_of: :winner
 
   # fields
   field :name

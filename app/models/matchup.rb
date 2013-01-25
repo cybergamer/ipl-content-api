@@ -4,12 +4,9 @@ class Matchup
 
   # relations
   belongs_to :franchise
-  belongs_to :calendar
   # belongs_to :show
   belongs_to :event
-  embeds_many :games, class_name: "MatchupGame", inverse_of: :matchup
-  # has_many :source_videos
-  # has_many :youtube_videos
+  has_many :games, class_name: "MatchupGame", inverse_of: :matchup
   has_and_belongs_to_many :teams
 
   # fields
@@ -20,10 +17,9 @@ class Matchup
   validates_numericality_of :best_of, :greater_than => 0
   validate :must_have_a_team
 
-  attr_accessible :best_of, :team_ids #:teams, :teams_attributes, :games, :games_attributes
+  attr_accessible :best_of, :team_ids
 
   accepts_nested_attributes_for :teams
-  # accepts_nested_attributes_for :games
 
   def as_json(options = {})
     {:id => id}.merge(MatchupSummary.new(self).as_json(options))
