@@ -1,9 +1,6 @@
 module IPL
-
   module Content
-
     module V2
-
       class Events_API < Grape::API
 
         namespace :events do
@@ -13,35 +10,7 @@ module IPL
     Events
     -----------------
 
-    Are scheduled items broadcasted on a given stream. It may consist of a matchup with corresponding teams.
-
-    Date Ranges
-    -----------------
-
-    Starting and ending datetimes should use the [RFC3339 format](http://www.ietf.org/rfc/rfc3339.txt). For example,
-
-        2013-01-23T16:00:00-08:00
-
-    Pagination
-    -----------------
-
-    Requests that return multiple items will be paginated to 50 items by default. You can specify further pages with the ?page parameter. For some resources, you can also set a custom page size up to 100 with the ?per_page parameter. Note that for technical reasons not all endpoints respect the ?per_page parameter, see franchises for example.
-
-    The pagination info is included in [the Link header](http://www.w3.org/Protocols/9707-link-header.html). It is important to follow these Link header values instead of constructing your own URLs.
-
-          Link: <http://example.com/items?page=3&per_page=100>; rel="next",
-          <http://example.com/items?page=50&per_page=100>; rel="last"
-
-    _Linebreak for readability._
-
-    Sorting
-    -----------------
-
-    Sort events on a field in either ascending, asc, or descending, desc, order. Possible fields to sort by:
-
-    * title
-    * startsAt
-    * endsAt
+    Are scheduled items broadcasted on a given stream. It may consist of a matchup.
   NOTE
 }
           params do
@@ -76,12 +45,12 @@ module IPL
 
           desc "Creates an event."
           post do
-            event = Events::Creator.new.create(params)
-            if event.persisted?
+            event = Events::EventBuilder.new.build(params)
+            if event.save
               event
             else
               messages = event.errors.messages
-              messages[:matchup] = event.matchup.errors.messages if event.matchup and !event.matchup.errors.messages.empty?
+              messages[:matchup] = event.matchup.errors.messages if event.matchup
               error!({"error" => "invalid data provided", "detail" => messages}, 400)
             end
           end
@@ -91,14 +60,17 @@ module IPL
             requires :id, :bson_id => true
           end
           delete ':id' do
-            Event.find(params[:id]).destroy
+            result = Event.find(params[:id]).destroy
+            if result
+              {"success" => result}
+            else
+              error!({"error" => "Could not delete event"}, 400)
+            end
           end
 
         end
 
       end
-
     end
-
   end
 end

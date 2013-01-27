@@ -1,9 +1,6 @@
 module IPL
-
   module Content
-
     module V2
-
       class Matchups_API < Grape::API
 
         namespace :matchups do
@@ -32,12 +29,26 @@ module IPL
 
           desc "Creates an matchup."
           post do
-            matchup = Matchups::Creator.new.create(params)
-            if matchup.persisted?
+            matchup = Matchups::MatchupBuilder.new.build(params)
+            if matchup.save
               matchup
             else
               messages = matchup.errors.messages
               error!({"error" => "invalid data provided", "detail" => messages}, 400)
+            end
+          end
+
+          desc "Updates a matchup."
+          params do
+            requires :id, :bson_id => true
+          end
+          put ':id' do
+            matchup = Matchup.find(params[:id])
+            result, errors = Matchups::MatchupUpdater.new.update(matchup, params)
+            if result
+              {"success" => result}
+            else
+              error!({"error" => "invalid data provided", "detail" => errors}, 400)
             end
           end
 
@@ -46,14 +57,17 @@ module IPL
             requires :id, :bson_id => true
           end
           delete ':id' do
-            Matchup.find(params[:id]).destroy
+            result = Matchup.find(params[:id]).destroy
+            if result
+              {"success" => result}
+            else
+              error!({"error" => "Could not delete matchup"}, 400)
+            end
           end
 
         end
 
       end
-
     end
-
   end
 end

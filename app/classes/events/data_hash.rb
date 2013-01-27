@@ -5,7 +5,7 @@ module Events
     property :title
     property :starts_at
     property :ends_at
-    property :stream_attributes, :from => :stream
-    property :matchup_attributes #, :from => :matchup
+    property :stream_id
+    property :matchup_id
   end
 end

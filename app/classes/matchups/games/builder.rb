@@ -4,7 +4,9 @@ module Matchups
 
       def build_games(matchup)
         (1..matchup.best_of).each do |i|
-          matchup.games << MatchupGame.new(:number => i)
+          game = MatchupGame.new
+          game.number = i
+          matchup.games << game
         end
       end
 

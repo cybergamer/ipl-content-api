@@ -17,6 +17,7 @@ module IPL
 
       mount IPL::Content::V2::Events_API
       mount IPL::Content::V2::Franchises_API
+      mount IPL::Content::V2::Games_API
       mount IPL::Content::V2::Groups_API
       mount IPL::Content::V2::Matchups_API
       mount IPL::Content::V2::Streams_API
