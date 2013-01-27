@@ -8,7 +8,7 @@ class Updater
   end
 
   def authorizer(attributes)
-    ActiveModel::MassAssignmentSecurity::WhiteList.new(Authorizers::AttributesTranslator.new.translate(attributes))
+    ActiveModel::MassAssignmentSecurity::WhiteList.new(Translators::AttributesTranslator.new.translate(attributes))
   end
 
 end

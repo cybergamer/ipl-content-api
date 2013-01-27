@@ -1,4 +1,4 @@
-module Authorizers
+module Translators
   class AttributesTranslator
 
     def mappings
