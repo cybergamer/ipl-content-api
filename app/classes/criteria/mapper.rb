@@ -1,8 +1,6 @@
  module Criteria
   class Mapper
 
-    MAPPERS = { :groups => Criteria::GroupsCriteriaMapper, :date_range => Criteria::DateRangeCriteriaMapper }
-
     def to_criteria(klass, criteria = [], options = {})
       mapped_criteria = Hash.new
       mappers = to_mappers(criteria)
@@ -10,7 +8,7 @@
     end
 
     def to_mappers(criteria)
-      criteria.collect { |e| Criteria::Mapper::MAPPERS[e.to_sym] }
+      criteria.collect { |e| eval("Criteria::#{e.camel_case}Mapper").new }
     end
 
   end
