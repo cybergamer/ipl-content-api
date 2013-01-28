@@ -16,11 +16,11 @@ class Event
   field :rebroadcast, :default => false
 
   # validations
-  #validates_presence_of :title, :starts_at, :ends_at, :stream_id
+  validates_presence_of :title, :starts_at, :ends_at
 
-  attr_accessible :title, :starts_at, :ends_at, :stream, :stream_attributes, :matchup_attributes
+  attr_accessible :title, :starts_at, :ends_at, :stream_id
 
-  accepts_nested_attributes_for :stream, :matchup
+  accepts_nested_attributes_for :stream
 
   def as_json( options = {})
     {:id => id, :title => title, :stream => stream.as_json({:projection => "short"}), :starts_at => starts_at, :ends_at => ends_at, :rebroadcast => rebroadcast, :matchup => matchup, :groups => groups}.reject { |k, v| v.nil? }

@@ -10,7 +10,7 @@ module IPL
 
           desc "Returns streams."
           get do
-            query = Query.new.to_query(Stream, params.merge({:valid_criteria => %w(groups)}))
+            query = Query.new.to_query(Stream, %w(groups), params)
             header['Last-Modified'] = Time.now.httpdate
             header['Cache-Control'] = "public, max-age=#{5.minutes.to_i}"
             Lister.new.to_list(query, params)
