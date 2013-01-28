@@ -39,7 +39,7 @@ class MatchupGame
   end
 
   def winner_is_a_participating_team?
-    winner_id and matchup.team_ids.include?(winner_id)
+    winner_id.present? ? matchup.team_ids.include?(winner_id) : true
   end
 
 end
