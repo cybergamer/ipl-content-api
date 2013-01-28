@@ -8,7 +8,7 @@
     end
 
     def to_mappers(criteria)
-      criteria.collect { |e| eval("Criteria::#{e.camel_case}Mapper").new }
+      criteria.collect { |e| eval("Criteria::#{e.classify}CriteriaMapper").new }
     end
 
   end
