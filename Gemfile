@@ -9,6 +9,7 @@ gem 'mongo', '1.3.1'
 gem 'mongoid', '2.4.12'
 gem 'mongoid_slug', '0.9.0', :require => 'mongoid/slug'
 gem 'rack', '1.4.4'
+gem 'rack-timeout', '0.0.3'
 
 group :development do
   gem 'shotgun', '0.9'
