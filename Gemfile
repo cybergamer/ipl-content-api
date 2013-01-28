@@ -17,3 +17,10 @@ end
 group :production do
   gem 'thin', '1.5.0'
 end
+
+group :test do
+  gem 'rspec'
+  gem 'simplecov', :require => false
+  gem 'spork'
+  gem 'watchr'
+end

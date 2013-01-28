@@ -7,7 +7,7 @@ module IPL
 
           desc "Returns matchups."
           get do
-            query = Query.new.to_query(Matchup, params.merge({:valid_criteria => %w(groups)}))
+            query = Query.new.to_query(Matchup, %w(groups), params)
             lister = Lister.new
             response = lister.to_list(query, params)
             link_header = Pagination::LinkHeader.new.to_header(lister.paginator, request)

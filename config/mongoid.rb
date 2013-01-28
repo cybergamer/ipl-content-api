@@ -1,4 +1,5 @@
 require 'yaml'
+require 'erb'
 
 path = File.join(File.dirname(__FILE__), 'mongoid.yml')
 config = YAML::load(ERB.new(IO.read(path)).result)["#{ENV['RACK_ENV']}"]

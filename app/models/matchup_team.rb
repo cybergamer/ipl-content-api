@@ -12,7 +12,7 @@ class MatchupTeam
   end
 
   def points
-    @matchup.games.ended.select { |game| game.winner == p }.size
+    @matchup.games.ended.select { |game| game.winner == @team }.size
   end
 
 end

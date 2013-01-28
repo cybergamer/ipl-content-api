@@ -23,7 +23,7 @@ module IPL
           end
           get do
             params.merge!({:sortBy => "startsAt"}) unless params[:sortBy]
-            query = Query.new.to_query(Event, params.merge({:valid_criteria => %w(groups date_range)}))
+            query = Query.new.to_query(Event, %w(groups date_range), params)
             lister = Lister.new
             response = lister.to_list(query, params)
             link_header = Pagination::LinkHeader.new.to_header(lister.paginator, request)

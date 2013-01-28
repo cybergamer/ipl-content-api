@@ -4,7 +4,7 @@ class MatchupGame
   STATUSES = %w(ready active done)
 
   # fields
-  field :number, :type => Integer
+  field :number, :type => Integer, :default => 1
   field :starts_at, :type => Time
   field :ends_at, :type => Time
   field :poll_id
@@ -35,7 +35,11 @@ class MatchupGame
   end
 
   def winner_must_be_a_participating_team
-    errors.add(:winner, 'Must be a participating team') if winner_id and !matchup.team_ids.include?(winner_id)
+    errors.add(:winner, 'Must be a participating team') if !winner_is_a_participating_team?
+  end
+
+  def winner_is_a_participating_team?
+    winner_id and matchup.team_ids.include?(winner_id)
   end
 
 end

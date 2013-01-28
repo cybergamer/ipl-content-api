@@ -3,6 +3,7 @@ module Criteria
 
     def to_criteria(criteria, options = {})
       groups = options[:groups] || nil
+      criteria = Hash.new
       criteria.merge!({:group_ids.in => to_ids(groups)}) if groups
       criteria
     end
