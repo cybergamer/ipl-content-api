@@ -23,7 +23,7 @@ class Matchup
   accepts_nested_attributes_for :teams, :winner
 
   def as_json(options = {})
-    {:id => id}.merge(MatchupSummary.new(self).as_json(options))
+    {:id => id, :best_of => best_of}.merge(MatchupSummary.new(self).as_json(options))
   end
 
   def must_have_a_valid_number_of_teams
