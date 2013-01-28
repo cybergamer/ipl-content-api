@@ -1,7 +1,7 @@
 module Criteria
-  class GroupsCriteriaMapper
+  class GroupCriteriaMapper
 
-    def to_criteria(criteria, options = {})
+    def to_criteria(options = {})
       groups = options[:groups] || nil
       criteria = Hash.new
       criteria.merge!({:group_ids.in => to_ids(groups)}) if groups

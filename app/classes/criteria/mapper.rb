@@ -8,7 +8,7 @@
     end
 
     def to_mappers(criteria)
-      criteria.collect { |e| eval("Criteria::#{e.classify}CriteriaMapper").new }
+      criteria.collect { |e| eval("Criteria::#{e.classify.singularize}CriteriaMapper").new }
     end
 
   end
