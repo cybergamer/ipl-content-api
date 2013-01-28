@@ -31,7 +31,7 @@ class MatchupGame
   accepts_nested_attributes_for :winner
 
   def as_json(options = {})
-    {:id => id, :number => number, :winner => winner, :status => status}.reject { |k, v| v.nil? }
+    {:id => id, :number => number, :starts_at => starts_at, :ends_at => ends_at, :winner => winner, :status => status}.reject { |k, v| v.nil? }
   end
 
   def winner_must_be_a_participating_team
