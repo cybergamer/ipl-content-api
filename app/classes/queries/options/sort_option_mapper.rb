@@ -5,11 +5,10 @@ module Queries
       ASCENDING = "asc"
       DESCENDING = "desc"
 
-      def to_option(options_result, options = {})
+      def to_option(options = {})
         sortBy = options[:sortBy] || nil
         sortDirection = options[:sortDirection] || ASCENDING
-        options_result.merge!({:sort => to_field_and_direction(sortBy, sortDirection)}) if sortBy and sortDirection
-        options_result
+        {:sort => to_field_and_direction(sortBy, sortDirection)} if sortBy and sortDirection
       end
 
       def to_field_and_direction(field, direction)

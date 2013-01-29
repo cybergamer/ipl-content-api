@@ -3,12 +3,12 @@ class Translator
   attr_accessor :target, :raw_data
 
   def translate(target, data, authorizer, coercer, options = {})
-    nested_attributes_tranlator = options[:nested_attributes_tranlator] || Translators::NestedAtrributesTranslator.new
+    nested_attributes_translator = options[:nested_attributes_translator] || Translators::NestedAtrributesTranslator.new
+    finalized_data = options[:finalized_data] || Hashie::Mash.new
     @target = target
     @raw_data = data
-    finalized_data = Hashie::Mash.new
     finalized_data.merge!( sanitize(@raw_data, authorizer, options) )
-    finalized_data.merge!( nested_attributes_tranlator.translate(@target, @raw_data) )
+    finalized_data.merge!( nested_attributes_translator.translate(@target, @raw_data) )
     coercer.new(finalized_data)
   end
 
