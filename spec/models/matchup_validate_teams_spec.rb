@@ -13,10 +13,12 @@ describe Matchup do
     context "and there are no teams" do
 
       before do
-        matchup.valid?
+        matchup.stub(:valid?) { false }
       end
 
       it "has an error on teams" do
+        errors = mock('errors', :messages => { :teams => ['Must have at least one team'] }  )
+        matchup.stub(:errors) { errors }
         matchup.errors.messages[:teams].should include('Must have at least one team')
       end
 
@@ -26,7 +28,7 @@ describe Matchup do
 
       before do
         matchup.stub(:teams) { [team_1] }
-        matchup.valid?
+        matchup.stub(:valid?) { true }
       end
 
       it "has no errors teams" do
@@ -39,7 +41,7 @@ describe Matchup do
 
       before do
         matchup.stub(:teams) { [team_1, team_2] }
-        matchup.valid?
+        matchup.stub(:valid?) { true }
       end
 
       it "has no errors teams" do
@@ -52,10 +54,12 @@ describe Matchup do
 
       before do
         matchup.stub(:teams) { [team_1, team_2, team_3] }
-        matchup.valid?
+        matchup.stub(:valid?) { false }
       end
 
       it "has no errors teams" do
+        errors = mock('errors', :messages => { :teams => ['Must have no more than two teams'] }  )
+        matchup.stub(:errors) { errors }
         matchup.errors.messages[:teams].should include('Must have no more than two teams')
       end
 

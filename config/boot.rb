@@ -5,4 +5,4 @@ require File.expand_path('../environment', __FILE__)
 
 Bundler.require :default, ENV['RACK_ENV']
 
-require File.expand_path('../mongoid', __FILE__)
+require File.expand_path('../mongoid', __FILE__) unless ENV['RACK_ENV'] == 'test'
