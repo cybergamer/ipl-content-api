@@ -33,4 +33,29 @@ describe Builder do
 
   end
 
+  context "when authorizing" do
+
+    subject { Builder.new }
+
+    let(:attributes_translator) { mock('attributes_translator') }
+
+    let(:whitelist) { mock('whitelist') }
+
+    let(:authorizer) { mock('authorizer') }
+
+    let(:attributes) { mock('attributes') }
+
+    let(:translated_attributes) { mock('translated attributes') }
+
+    before do
+      attributes_translator.stub(:translate).with(attributes) { translated_attributes }
+      whitelist.stub(:new).with( translated_attributes ) { authorizer }
+    end
+
+    it "returns an authorizer for whitelisted attributes" do
+      subject.authorizer(attributes, {:attributes_translator => attributes_translator, :whitelist => whitelist}).should == authorizer
+    end
+
+  end
+
 end
