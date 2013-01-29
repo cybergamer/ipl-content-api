@@ -46,6 +46,8 @@ GEM
     rack (1.4.4)
     rack-accept (0.4.5)
       rack (>= 0.4)
+    rack-contrib (1.1.0)
+      rack (>= 0.9.1)
     rack-mount (0.8.3)
       rack (>= 1.0.0)
     rack-timeout (0.0.3)
@@ -88,6 +90,7 @@ DEPENDENCIES
   mongoid (= 2.4.12)
   mongoid_slug (= 0.9.0)
   rack (= 1.4.4)
+  rack-contrib (= 1.1.0)
   rack-timeout (= 0.0.3)
   rspec
   shotgun (= 0.9)
